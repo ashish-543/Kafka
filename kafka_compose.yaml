@@ -1,0 +1,35 @@
+services:
+  kafka:
+    image: confluentinc/cp-kafka:7.8.3
+    container_name: kafka
+    ports:
+    - "9092:9092"
+
+    environment:
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk' # cluster_id(string) for a kafka cluster. All the brokers in a cluster have same cluster_id. 22 characters
+      KAFKA_NODE_ID: 1 # The id for the broker. In our case, we are only using a single broker
+
+      KAFKA_PROCESS_ROLES: broker,controller # Defining role for the id 1 broker. In kraft mode, single node can act as broker as well as controller i.e it acts as both broker and zookeeper
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093 # Defining the controllers for the system. If multiple controllers then use, id@kafka:9093, ...
+      # In case of mutiple controllers, at a time only one broker acts as controller i.e leader other brokers defined above are followers i.e backup
+      KAFKA_OFFSET_REPLICATION_FACTOR: 1 # Number of copies of the metadata i.e data regrading the offset values of the consumers and others.
+      # For the value 1, if the kafka server crashes then the metadata is lost because there is only a single copy which is the original data so no backup
+      # Its default value is same as number of nodes. In our case, number of nodes is 1 so its value is also 1
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093 # Opening two doors
+      # Specifies the network interfaces and ports on which the broker listens for incomming connections from clients and other broker
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      # Defines the address that kafka tells clients/brokers to connect to
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER # Same name as mentioned in kafka_listeners. Same as advertised_listeners but for controllers.
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT # channel for interbroker comunication. Used if a broker fails and has to transer(replicate) its data to another broker
+
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      # Tells kafka where to store data files, broker logs and controller metadata in our local disk
+      # Since the data is mounted in this locatio using the volume, use the same location
+
+    volumes: # For the deta persistance
+      - kafka_data:/var/lib/kafka/data # Location in the container for data storage
+
+volumes:
+  kafka_data:
