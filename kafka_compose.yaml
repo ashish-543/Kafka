@@ -26,7 +26,7 @@ services:
 
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       # Tells kafka where to store data files, broker logs and controller metadata in our local disk
-      # Since the data is mounted in this locatio using the volume, use the same location
+      # Since the data is mounted in this location using the volume, use the same location as mentioned in the volume
 
     volumes: # For the deta persistance
       - kafka_data:/var/lib/kafka/data # Location in the container for data storage
