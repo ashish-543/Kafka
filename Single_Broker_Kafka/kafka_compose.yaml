@@ -12,7 +12,7 @@ services:
       KAFKA_PROCESS_ROLES: broker,controller # Defining role for the id 1 broker. In kraft mode, single node can act as broker as well as controller i.e it acts as both broker and zookeeper
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093 # Defining the controllers for the system. If multiple controllers then use, id@kafka:9093, ...
       # In case of mutiple controllers, at a time only one broker acts as controller i.e leader other brokers defined above are followers i.e backup
-      KAFKA_OFFSET_REPLICATION_FACTOR: 1 # Number of copies of the metadata i.e data regrading the offset values of the consumers and others.
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 # Number of copies of the metadata i.e data regrading the offset values of the consumers and others.
       # For the value 1, if the kafka server crashes then the metadata is lost because there is only a single copy which is the original data so no backup
       # Its default value is same as number of nodes. In our case, number of nodes is 1 so its value is also 1
 

@@ -15,16 +15,17 @@ producer = Producer(producer_config)
 
 
 # Creating callback function for producer delivery report
+# It has two arguments: message and error
 def delivery_status(err, msg):
     if err:
         print(f"Message delivery failed: {err}")
     else:
-        print("Message successfully delivered")
+        print("Message successfully delivered:", msg.offset())
 
 
 order = {
     "order_id": str(uuid.uuid4()),
-    "user_name": "sam",
+    "user_name": "bill",
     "product": "burger",
     "quantity": 5
 }
