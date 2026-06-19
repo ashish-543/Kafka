@@ -20,7 +20,12 @@ def delivery_status(err, msg):
     if err:
         print(f"Message delivery failed: {err}")
     else:
-        print("Message successfully delivered:", msg.offset())
+        print(f"""
+        Topic       : {msg.topic()}
+        Partition   : {msg.partition()}
+        Offset      : {msg.offset()}
+        Timestamp   : {msg.timestamp()}
+""")
 
 
 order = {
