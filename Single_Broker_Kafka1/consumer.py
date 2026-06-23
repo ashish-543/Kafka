@@ -15,15 +15,19 @@ print("Consumer is running and subscribed to orders topic")
 
 try:
     while True:
-        msg = consumer.poll(1)
+        msg = consumer.poll(2)
         if msg is None:
             continue
         if msg.error():
             print("Error Occured:", msg.error())
             continue
+        if msg.key():
+            key = msg.key().decode("utf-8")
+        
         value = json.loads(msg.value().decode("utf-8"))
         print("Received value: ", value)
         print(f"""
+                Key        : {key}
                 Topic      : {msg.topic()}
                 Partition  : {msg.partition()}
                 Offset     : {msg.offset()}

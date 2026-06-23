@@ -36,6 +36,7 @@ for i in range(1, 11):
 
     producer.produce(
         topic = "orders",
+        key = values["user_name"].encode("utf-8"),
         value = value,
         callback = delivery_report
     )
