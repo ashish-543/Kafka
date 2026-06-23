@@ -73,6 +73,7 @@ producer.flush()
 
 # The partition is calculated using: hash(key)%partition_number
 # -> This doesnot guarantee equal distribution of data across the partition
+# -> It also doesnot guarantee that every partition gets data.
 
 
 # If the keys are not mentioned then the partition selection will be random
@@ -80,3 +81,4 @@ producer.flush()
 # This is called sticky method where it sticks to a partition for a given batch.
 # After the current batch is finished then the process is repeated for the next batch
 # So in this method, there is no feature of data being in the same partition based on keys
+# It guarantees that every partition gets data
