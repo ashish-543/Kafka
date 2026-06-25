@@ -61,7 +61,7 @@ producer.flush()
 # The __consumer_offsets topic is the default topic that keeps the metadata of consumer group i.e Stores consumer group offsets
 
 # Now to see the topics in the kafka:
-# -> docker exec -it kafka kafka-topic `
+# -> docker exec -it kafka kafka-topics `
 # -> --describe `
 # -> --topic orders `
 # -> --bootstrap-server localhost:9092
