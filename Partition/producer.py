@@ -47,6 +47,12 @@ producer.flush()
 
 # The data having same keys are kept in same partition in the order in which they are sent
 
+# First delete the topic if it already exists:
+# -> docker exec -it kafka kafka-topics `
+# -> --delete `
+# -> --topic orders `
+# -> --bootstrap-server localhost:9092
+
 
 # First remove the previous topics and then create new topic and specify the paritions and replication_factor inside the topic using CLI:
 # -> docker exec -it kafka kafka-topics `
