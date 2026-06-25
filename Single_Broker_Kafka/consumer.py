@@ -5,6 +5,7 @@ consumer_config = {
     "bootstrap.servers": "localhost:9092",
     "group.id": "tracker", # Defining consumer group id
     "auto.offset.reset": "earliest"  # If the offset value is lost due to server crashing then the message is read from the earliest offset.
+    # Also if there is no previous offset value inside __consumer_offsets then this mecahanism is used to select earliest or latest message.
 }
 
 consumer = Consumer(consumer_config)
