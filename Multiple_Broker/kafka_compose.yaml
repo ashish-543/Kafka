@@ -1,0 +1,138 @@
+services:
+
+  broker1:
+    image: confluentinc/cp-kafka:7.8.3
+    container_name: broker1
+    hostname: broker1
+
+    ports:
+      - "9092:9092"
+
+    environment:
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+
+      KAFKA_NODE_ID: 1
+
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: >
+        1@broker1:9093,
+        2@broker2:9093,
+        3@broker3:9093
+
+      KAFKA_LISTENERS: >
+        PLAINTEXT://0.0.0.0:9092,
+        CONTROLLER://0.0.0.0:9093
+
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:9092
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >
+        PLAINTEXT:PLAINTEXT,
+        CONTROLLER:PLAINTEXT
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+    
+    volumes:
+      - ./volume/broker1:/var/lib/kafka/data
+
+
+  broker2:
+    image: confluentinc/cp-kafka:7.8.3
+
+    container_name: broker2
+    hostname: broker2
+
+    ports:
+      - "9094:9092"
+
+    environment:
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+
+      KAFKA_NODE_ID: 2
+
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: >
+        1@broker1:9093,
+        2@broker2:9093,
+        3@broker3:9093
+
+      KAFKA_LISTENERS: >
+        PLAINTEXT://0.0.0.0:9092,
+        CONTROLLER://0.0.0.0:9093
+
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:9092
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >
+        PLAINTEXT:PLAINTEXT,
+        CONTROLLER:PLAINTEXT
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+    volumes:
+      - ./volume/broker2:/var/lib/kafka/data
+
+
+  broker3:
+    image: confluentinc/cp-kafka:7.8.3
+
+    container_name: broker3
+    hostname: broker3
+
+    ports:
+      - "9096:9092"
+
+    environment:
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+
+      KAFKA_NODE_ID: 3
+
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: >
+        1@broker1:9093,
+        2@broker2:9093,
+        3@broker3:9093
+
+      KAFKA_LISTENERS: >
+        PLAINTEXT://0.0.0.0:9092,
+        CONTROLLER://0.0.0.0:9093
+
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:9092
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >
+        PLAINTEXT:PLAINTEXT,
+        CONTROLLER:PLAINTEXT
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+    volumes:
+      - ./volume/broker3:/var/lib/kafka/data
+
+
+volumes:
+  volume:
