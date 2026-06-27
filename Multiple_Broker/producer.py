@@ -101,3 +101,14 @@ producer.flush()
 #        Topic: orders   Partition: 0    Leader: 3       Replicas: 3,1,2 Isr: 3,1,2      Elr:    LastKnownElr: 
 #        Topic: orders   Partition: 1    Leader: 1       Replicas: 1,2,3 Isr: 1,2,3      Elr:    LastKnownElr: 
 #        Topic: orders   Partition: 2    Leader: 2       Replicas: 2,3,1 Isr: 2,3,1      Elr:    LastKnownElr: 
+
+
+# Question: 8 partitions -> 4 brokers -> replication factor = 3
+# partition 0 -> leader 1 -> Replicas 2&3
+# partition 1 -> leader 2 -> Replicas 3&4
+# partition 2 -> leader 3 -> Replicas 4&1
+# partition 3 -> leader 4 -> Replicas 1&2
+# partition 4 -> leader 1 -> Replicas 2&3 .... and so on
+# -> As we can see the leader and follower selection is round robin
+
+
