@@ -51,7 +51,7 @@ producer.flush()
 # -> docker exec -it kafka kafka-topics `
 # -> --delete `
 # -> --topic orders `
-# -> --bootstrap-server localhost:9092
+# -> --bootstrap-server localhost:9092  -> 9092 is the container port not the host port
 
 
 # First remove the previous topics and then create new topic and specify the paritions and replication_factor inside the topic using CLI:
